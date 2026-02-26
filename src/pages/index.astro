@@ -1,0 +1,219 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ArtCard from '../components/ArtCard.astro';
+
+// Featured pieces — replace with your friend's actual work
+const featured = [
+  {
+    title: "The Hollow King",
+    image: "/images/placeholder-1.jpg",
+    price: "$35",
+    medium: "Digital Print",
+    size: '11×14"',
+    buyLink: "#",
+  },
+  {
+    title: "Moth & Flame",
+    image: "/images/placeholder-2.jpg",
+    price: "$30",
+    medium: "Digital Print",
+    size: '8×10"',
+    buyLink: "#",
+  },
+  {
+    title: "Bone Garden",
+    image: "/images/placeholder-3.jpg",
+    price: "$35",
+    medium: "Digital Print",
+    size: '11×14"',
+    buyLink: "#",
+  },
+];
+---
+
+<BaseLayout>
+  <Header slot="header" />
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1 class="hero-title fade-in-up">Dark Bloom<br /><span>Studio</span></h1>
+      <p class="hero-subtitle fade-in-up">Original dark art &amp; prints</p>
+      <div class="hero-actions fade-in-up">
+        <a href="/prints/" class="btn btn--filled">Browse Prints</a>
+        <a href="/originals/" class="btn">View Originals</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Works -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Featured Works</h2>
+      <div class="art-grid stagger">
+        {featured.map(piece => (
+          <ArtCard {...piece} />
+        ))}
+      </div>
+      <div class="section-cta">
+        <a href="/prints/" class="btn">See All Prints</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Teaser -->
+  <section class="section about-teaser">
+    <div class="container about-teaser-inner">
+      <div class="about-teaser__text">
+        <h2>The Artist</h2>
+        <p>
+          Exploring themes of mortality, myth, and the beauty found in darkness.
+          Each piece is created with intention — pulling from folklore, gothic
+          literature, and the natural world's more shadowed corners.
+        </p>
+        <a href="/about/" class="btn btn--small">Read More</a>
+      </div>
+      <div class="about-teaser__image">
+        <img src="/images/artist-placeholder.jpg" alt="The artist at work" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Teaser -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Upcoming Events</h2>
+      <p class="events-teaser-text">
+        Find original works, prints, and new releases at upcoming markets and conventions.
+      </p>
+      <div class="section-cta">
+        <a href="/events/" class="btn">View All Events</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  /* --- Hero --- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--color-bg);
+    background-image:
+      radial-gradient(ellipse at 30% 60%, rgba(100, 60, 30, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 30%, rgba(80, 40, 80, 0.06) 0%, transparent 50%);
+    overflow: hidden;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--color-bg) 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding-top: var(--header-height);
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 10vw, 7rem);
+    letter-spacing: 0.08em;
+    line-height: 0.95;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-title span {
+    color: var(--color-accent);
+    font-size: 0.4em;
+    letter-spacing: 0.35em;
+    display: block;
+    margin-top: var(--space-sm);
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* --- Section CTA --- */
+  .section-cta {
+    text-align: center;
+    margin-top: var(--space-xl);
+  }
+
+  /* --- About Teaser --- */
+  .about-teaser {
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .about-teaser-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .about-teaser__text h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .about-teaser__text p {
+    margin-bottom: var(--space-lg);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .about-teaser__image img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border: 1px solid var(--color-border);
+  }
+
+  /* --- Events Teaser --- */
+  .events-teaser-text {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto var(--space-md);
+  }
+
+  @media (max-width: 768px) {
+    .about-teaser-inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .about-teaser__image {
+      order: -1;
+    }
+  }
+</style>

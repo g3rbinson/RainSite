@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import EventCard from '../../components/EventCard.astro';
+
+const upcomingEvents = [
+  {
+    title: "Gothic Arts Market",
+    date: "March 15, 2026",
+    location: "The Old Chapel, Portland OR",
+    description: "A curated market of dark art, jewelry, and oddities. Prints, stickers, and select originals will be available.",
+    link: "#",
+    image: "/images/event-placeholder-1.jpg",
+  },
+  {
+    title: "Mythic Con — Artist Alley",
+    date: "April 24–26, 2026",
+    location: "Convention Center, Seattle WA",
+    description: "Find me at booth #142. New print releases and exclusive convention pieces.",
+    link: "#",
+    image: "/images/event-placeholder-2.jpg",
+  },
+];
+
+const pastEvents = [
+  {
+    title: "Dark Harvest Night Market",
+    date: "October 12, 2025",
+    location: "Warehouse District, Portland OR",
+    description: "Thank you to everyone who came out! A wonderful evening of art and community.",
+  },
+];
+---
+
+<BaseLayout title="Events — Dark Bloom Studio">
+  <Header slot="header" />
+
+  <section class="page-hero">
+    <div class="container">
+      <h1 class="page-title">Events</h1>
+      <p class="page-desc">
+        Markets, conventions, and gallery shows where you can see the art in person
+        and pick up prints, originals, and exclusive pieces.
+      </p>
+    </div>
+  </section>
+
+  <!-- Upcoming Events -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Upcoming</h2>
+      <div class="events-list stagger">
+        {upcomingEvents.map(event => (
+          <EventCard {...event} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Past Events -->
+  <section class="section past-events">
+    <div class="container">
+      <h2 class="section-title">Past Events</h2>
+      <div class="events-list stagger">
+        {pastEvents.map(event => (
+          <EventCard {...event} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-top: calc(var(--header-height) + var(--space-2xl));
+    padding-bottom: var(--space-xl);
+    text-align: center;
+    background: var(--color-bg-alt);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .page-title {
+    margin-bottom: var(--space-md);
+  }
+
+  .page-desc {
+    max-width: 560px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+
+  .events-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .past-events {
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-border);
+  }
+</style>

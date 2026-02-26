@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ArtCard from '../../components/ArtCard.astro';
+
+const originals = [
+  {
+    title: "Persephone's Descent",
+    image: "/images/original-1.jpg",
+    price: "$450",
+    medium: "Oil on Canvas",
+    size: '18×24"',
+    sold: false,
+    inquireLink: "mailto:hello@darkbloomstudio.com?subject=Inquiry: Persephone's Descent",
+  },
+  {
+    title: "The Last Familiar",
+    image: "/images/original-2.jpg",
+    price: "$380",
+    medium: "Ink & Watercolor on Paper",
+    size: '14×18"',
+    sold: false,
+    inquireLink: "mailto:hello@darkbloomstudio.com?subject=Inquiry: The Last Familiar",
+  },
+  {
+    title: "Thornweaver",
+    image: "/images/original-3.jpg",
+    medium: "Acrylic on Wood Panel",
+    size: '12×12"',
+    sold: true,
+  },
+];
+---
+
+<BaseLayout title="Originals — Dark Bloom Studio">
+  <Header slot="header" />
+
+  <section class="page-hero">
+    <div class="container">
+      <h1 class="page-title">Original Works</h1>
+      <p class="page-desc">
+        One-of-a-kind pieces. Each original is unique and cannot be reproduced.
+        Inquire directly for availability and commissions.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="art-grid stagger">
+        {originals.map(piece => (
+          <ArtCard {...piece} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section commission-cta">
+    <div class="container" style="text-align: center;">
+      <h2 class="section-title">Commissions</h2>
+      <p class="commission-text">
+        Interested in a custom piece? Commissions are opened periodically.
+        Reach out to discuss your vision.
+      </p>
+      <a href="mailto:hello@darkbloomstudio.com?subject=Commission Inquiry" class="btn btn--filled">
+        Get In Touch
+      </a>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-top: calc(var(--header-height) + var(--space-2xl));
+    padding-bottom: var(--space-xl);
+    text-align: center;
+    background: var(--color-bg-alt);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .page-title {
+    margin-bottom: var(--space-md);
+  }
+
+  .page-desc {
+    max-width: 560px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+
+  .commission-cta {
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .commission-text {
+    max-width: 480px;
+    margin: 0 auto var(--space-lg);
+    font-size: 1rem;
+  }
+</style>

@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ArtCard from '../../components/ArtCard.astro';
+
+const prints = [
+  {
+    title: "The Hollow King",
+    image: "/images/placeholder-1.jpg",
+    price: "$35",
+    medium: "Digital Print on Matte Paper",
+    size: '11×14"',
+    buyLink: "#",
+  },
+  {
+    title: "Moth & Flame",
+    image: "/images/placeholder-2.jpg",
+    price: "$30",
+    medium: "Digital Print on Matte Paper",
+    size: '8×10"',
+    buyLink: "#",
+  },
+  {
+    title: "Bone Garden",
+    image: "/images/placeholder-3.jpg",
+    price: "$35",
+    medium: "Digital Print on Matte Paper",
+    size: '11×14"',
+    buyLink: "#",
+  },
+  {
+    title: "Serpent's Lullaby",
+    image: "/images/placeholder-4.jpg",
+    price: "$25",
+    medium: "Digital Print on Matte Paper",
+    size: '8×10"',
+    buyLink: "#",
+  },
+  {
+    title: "Witch Light",
+    image: "/images/placeholder-5.jpg",
+    price: "$35",
+    medium: "Digital Print on Matte Paper",
+    size: '11×14"',
+    buyLink: "#",
+  },
+  {
+    title: "Cathedral of Thorns",
+    image: "/images/placeholder-6.jpg",
+    price: "$40",
+    medium: "Digital Print on Matte Paper",
+    size: '12×16"',
+    buyLink: "#",
+  },
+];
+---
+
+<BaseLayout title="Prints — Dark Bloom Studio">
+  <Header slot="header" />
+
+  <section class="page-hero">
+    <div class="container">
+      <h1 class="page-title">Prints</h1>
+      <p class="page-desc">
+        Museum-quality prints on archival matte paper. Each piece is printed to order
+        and ships flat with protective backing.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="art-grid stagger">
+        {prints.map(piece => (
+          <ArtCard {...piece} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section shipping-info">
+    <div class="container">
+      <h2 class="section-title">Shipping &amp; Info</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <h3>Printed to Order</h3>
+          <p>Each print is made fresh when you order. Please allow 3–5 business days for production.</p>
+        </div>
+        <div class="info-item">
+          <h3>Archival Quality</h3>
+          <p>Printed on acid-free, museum-grade matte paper with pigment inks rated for 100+ years.</p>
+        </div>
+        <div class="info-item">
+          <h3>Flat Shipping</h3>
+          <p>Prints ship flat with rigid backing and protective sleeve. US shipping included in price.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-top: calc(var(--header-height) + var(--space-2xl));
+    padding-bottom: var(--space-xl);
+    text-align: center;
+    background: var(--color-bg-alt);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .page-title {
+    margin-bottom: var(--space-md);
+  }
+
+  .page-desc {
+    max-width: 560px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+
+  .shipping-info {
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .info-item {
+    text-align: center;
+    padding: var(--space-lg);
+  }
+
+  .info-item h3 {
+    font-size: 1rem;
+    margin-bottom: var(--space-sm);
+    color: var(--color-accent);
+  }
+
+  .info-item p {
+    font-size: 0.9rem;
+  }
+</style>

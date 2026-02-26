@@ -1,0 +1,51 @@
+---
+export interface Props {
+  title: string;
+  image: string;
+  price?: string;
+  medium?: string;
+  size?: string;
+  sold?: boolean;
+  buyLink?: string;
+  inquireLink?: string;
+}
+
+const { title, image, price, medium, size, sold = false, buyLink, inquireLink } = Astro.props;
+---
+
+<article class="art-card">
+  <div class="art-card__image-wrap">
+    <img src={image} alt={title} class="art-card__image" loading="lazy" />
+    {sold && <span class="art-card__badge art-card__badge--sold">Sold</span>}
+  </div>
+  <div class="art-card__body">
+    <h3 class="art-card__title">{title}</h3>
+    {(medium || size) && (
+      <p class="art-card__meta">
+        {medium}{medium && size ? ' · ' : ''}{size}
+      </p>
+    )}
+    {price && !sold && <p class="art-card__price">{price}</p>}
+    <div class="art-card__actions">
+      {buyLink && !sold && (
+        <a href={buyLink} class="btn btn--small" target="_blank" rel="noopener">
+          Purchase
+        </a>
+      )}
+      {inquireLink && !sold && (
+        <a href={inquireLink} class="btn btn--small">
+          Inquire
+        </a>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .art-card__actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    flex-wrap: wrap;
+  }
+</style>
