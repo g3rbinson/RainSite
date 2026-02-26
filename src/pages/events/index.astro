@@ -1,36 +1,16 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import EventCard from '../../components/EventCard.astro';
 
-const upcomingEvents = [
-  {
-    title: "Gothic Arts Market",
-    date: "March 15, 2026",
-    location: "The Old Chapel, Portland OR",
-    description: "A curated market of dark art, jewelry, and oddities. Prints, stickers, and select originals will be available.",
-    link: "#",
-    image: "/images/event-placeholder-1.jpg",
-  },
-  {
-    title: "Mythic Con — Artist Alley",
-    date: "April 24–26, 2026",
-    location: "Convention Center, Seattle WA",
-    description: "Find me at booth #142. New print releases and exclusive convention pieces.",
-    link: "#",
-    image: "/images/event-placeholder-2.jpg",
-  },
-];
+const allEvents = (await getCollection('events', ({ data }) => data.published))
+  .sort((a, b) => new Date(b.data.sortDate).getTime() - new Date(a.data.sortDate).getTime());
 
-const pastEvents = [
-  {
-    title: "Dark Harvest Night Market",
-    date: "October 12, 2025",
-    location: "Warehouse District, Portland OR",
-    description: "Thank you to everyone who came out! A wonderful evening of art and community.",
-  },
-];
+const today = new Date().toISOString().slice(0, 10);
+const upcomingEvents = allEvents.filter(e => e.data.sortDate >= today);
+const pastEvents = allEvents.filter(e => e.data.sortDate < today);
 ---
 
 <BaseLayout title="Events — Dark Bloom Studio">
@@ -52,7 +32,14 @@ const pastEvents = [
       <h2 class="section-title">Upcoming</h2>
       <div class="events-list stagger">
         {upcomingEvents.map(event => (
-          <EventCard {...event} />
+          <EventCard
+            title={event.data.title}
+            date={event.data.date}
+            location={event.data.location}
+            description={event.data.description}
+            link={event.data.link}
+            image={event.data.image}
+          />
         ))}
       </div>
     </div>
@@ -64,7 +51,14 @@ const pastEvents = [
       <h2 class="section-title">Past Events</h2>
       <div class="events-list stagger">
         {pastEvents.map(event => (
-          <EventCard {...event} />
+          <EventCard
+            title={event.data.title}
+            date={event.data.date}
+            location={event.data.location}
+            description={event.data.description}
+            link={event.data.link}
+            image={event.data.image}
+          />
         ))}
       </div>
     </div>

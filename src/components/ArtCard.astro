@@ -2,7 +2,9 @@
 export interface Props {
   title: string;
   image: string;
-  price?: string;
+  price?: number;
+  salePrice?: number;
+  saleEnds?: string;
   medium?: string;
   size?: string;
   sold?: boolean;
@@ -10,13 +12,19 @@ export interface Props {
   inquireLink?: string;
 }
 
-const { title, image, price, medium, size, sold = false, buyLink, inquireLink } = Astro.props;
+const { title, image, price, salePrice, saleEnds, medium, size, sold = false, buyLink, inquireLink } = Astro.props;
+
+// Determine if a sale is currently active
+const now = new Date();
+const saleActive = salePrice != null && (!saleEnds || new Date(saleEnds) > now);
+const displayPrice = saleActive ? salePrice : price;
 ---
 
 <article class="art-card">
   <div class="art-card__image-wrap">
     <img src={image} alt={title} class="art-card__image" loading="lazy" />
     {sold && <span class="art-card__badge art-card__badge--sold">Sold</span>}
+    {saleActive && !sold && <span class="art-card__badge art-card__badge--sale">Sale</span>}
   </div>
   <div class="art-card__body">
     <h3 class="art-card__title">{title}</h3>
@@ -25,7 +33,14 @@ const { title, image, price, medium, size, sold = false, buyLink, inquireLink } 
         {medium}{medium && size ? ' · ' : ''}{size}
       </p>
     )}
-    {price && !sold && <p class="art-card__price">{price}</p>}
+    {displayPrice != null && !sold && (
+      <p class="art-card__price">
+        ${displayPrice}
+        {saleActive && price && (
+          <span class="art-card__original-price">${price}</span>
+        )}
+      </p>
+    )}
     <div class="art-card__actions">
       {buyLink && !sold && (
         <a href={buyLink} class="btn btn--small" target="_blank" rel="noopener">
@@ -47,5 +62,16 @@ const { title, image, price, medium, size, sold = false, buyLink, inquireLink } 
     gap: var(--space-sm);
     margin-top: var(--space-md);
     flex-wrap: wrap;
+  }
+
+  .art-card__badge--sale {
+    background: #8b3a3a;
+  }
+
+  .art-card__original-price {
+    text-decoration: line-through;
+    color: var(--color-text-muted);
+    font-size: 0.85em;
+    margin-left: 0.5em;
   }
 </style>

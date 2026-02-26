@@ -1,59 +1,12 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ArtCard from '../../components/ArtCard.astro';
 
-const prints = [
-  {
-    title: "The Hollow King",
-    image: "/images/placeholder-1.jpg",
-    price: "$35",
-    medium: "Digital Print on Matte Paper",
-    size: '11×14"',
-    buyLink: "#",
-  },
-  {
-    title: "Moth & Flame",
-    image: "/images/placeholder-2.jpg",
-    price: "$30",
-    medium: "Digital Print on Matte Paper",
-    size: '8×10"',
-    buyLink: "#",
-  },
-  {
-    title: "Bone Garden",
-    image: "/images/placeholder-3.jpg",
-    price: "$35",
-    medium: "Digital Print on Matte Paper",
-    size: '11×14"',
-    buyLink: "#",
-  },
-  {
-    title: "Serpent's Lullaby",
-    image: "/images/placeholder-4.jpg",
-    price: "$25",
-    medium: "Digital Print on Matte Paper",
-    size: '8×10"',
-    buyLink: "#",
-  },
-  {
-    title: "Witch Light",
-    image: "/images/placeholder-5.jpg",
-    price: "$35",
-    medium: "Digital Print on Matte Paper",
-    size: '11×14"',
-    buyLink: "#",
-  },
-  {
-    title: "Cathedral of Thorns",
-    image: "/images/placeholder-6.jpg",
-    price: "$40",
-    medium: "Digital Print on Matte Paper",
-    size: '12×16"',
-    buyLink: "#",
-  },
-];
+const prints = (await getCollection('prints', ({ data }) => data.published))
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 ---
 
 <BaseLayout title="Prints — Dark Bloom Studio">
@@ -73,7 +26,16 @@ const prints = [
     <div class="container">
       <div class="art-grid stagger">
         {prints.map(piece => (
-          <ArtCard {...piece} />
+          <ArtCard
+            title={piece.data.title}
+            image={piece.data.image}
+            price={piece.data.price}
+            salePrice={piece.data.salePrice}
+            saleEnds={piece.data.saleEnds}
+            medium={piece.data.medium}
+            size={piece.data.size}
+            buyLink={piece.data.buyLink}
+          />
         ))}
       </div>
     </div>

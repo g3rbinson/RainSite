@@ -1,36 +1,12 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import ArtCard from '../../components/ArtCard.astro';
 
-const originals = [
-  {
-    title: "Persephone's Descent",
-    image: "/images/original-1.jpg",
-    price: "$450",
-    medium: "Oil on Canvas",
-    size: '18×24"',
-    sold: false,
-    inquireLink: "mailto:hello@darkbloomstudio.com?subject=Inquiry: Persephone's Descent",
-  },
-  {
-    title: "The Last Familiar",
-    image: "/images/original-2.jpg",
-    price: "$380",
-    medium: "Ink & Watercolor on Paper",
-    size: '14×18"',
-    sold: false,
-    inquireLink: "mailto:hello@darkbloomstudio.com?subject=Inquiry: The Last Familiar",
-  },
-  {
-    title: "Thornweaver",
-    image: "/images/original-3.jpg",
-    medium: "Acrylic on Wood Panel",
-    size: '12×12"',
-    sold: true,
-  },
-];
+const originals = (await getCollection('originals', ({ data }) => data.published))
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 ---
 
 <BaseLayout title="Originals — Dark Bloom Studio">
@@ -50,7 +26,17 @@ const originals = [
     <div class="container">
       <div class="art-grid stagger">
         {originals.map(piece => (
-          <ArtCard {...piece} />
+          <ArtCard
+            title={piece.data.title}
+            image={piece.data.image}
+            price={piece.data.price}
+            salePrice={piece.data.salePrice}
+            saleEnds={piece.data.saleEnds}
+            medium={piece.data.medium}
+            size={piece.data.size}
+            sold={piece.data.sold}
+            inquireLink={!piece.data.sold ? `mailto:${piece.data.inquireEmail}?subject=Inquiry: ${piece.data.title}` : undefined}
+          />
         ))}
       </div>
     </div>

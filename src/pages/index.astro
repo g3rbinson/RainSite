@@ -1,36 +1,15 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ArtCard from '../components/ArtCard.astro';
 
-// Featured pieces — replace with your friend's actual work
-const featured = [
-  {
-    title: "The Hollow King",
-    image: "/images/placeholder-1.jpg",
-    price: "$35",
-    medium: "Digital Print",
-    size: '11×14"',
-    buyLink: "#",
-  },
-  {
-    title: "Moth & Flame",
-    image: "/images/placeholder-2.jpg",
-    price: "$30",
-    medium: "Digital Print",
-    size: '8×10"',
-    buyLink: "#",
-  },
-  {
-    title: "Bone Garden",
-    image: "/images/placeholder-3.jpg",
-    price: "$35",
-    medium: "Digital Print",
-    size: '11×14"',
-    buyLink: "#",
-  },
-];
+// Get featured prints (marked featured: true in frontmatter)
+const allPrints = await getCollection('prints', ({ data }) => data.published);
+const featured = allPrints
+  .filter(p => p.data.featured)
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 ---
 
 <BaseLayout>
@@ -55,7 +34,16 @@ const featured = [
       <h2 class="section-title">Featured Works</h2>
       <div class="art-grid stagger">
         {featured.map(piece => (
-          <ArtCard {...piece} />
+          <ArtCard
+            title={piece.data.title}
+            image={piece.data.image}
+            price={piece.data.price}
+            salePrice={piece.data.salePrice}
+            saleEnds={piece.data.saleEnds}
+            medium={piece.data.medium}
+            size={piece.data.size}
+            buyLink={piece.data.buyLink}
+          />
         ))}
       </div>
       <div class="section-cta">
