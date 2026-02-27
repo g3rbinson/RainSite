@@ -1,18 +1,19 @@
 ---
+const base = import.meta.env.BASE_URL;
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/prints/', label: 'Prints' },
-  { href: '/originals/', label: 'Originals' },
-  { href: '/events/', label: 'Events' },
-  { href: '/about/', label: 'About' },
+  { href: `${base}`, label: 'Home' },
+  { href: `${base}prints/`, label: 'Prints' },
+  { href: `${base}originals/`, label: 'Originals' },
+  { href: `${base}events/`, label: 'Events' },
+  { href: `${base}about/`, label: 'About' },
 ];
 ---
 
 <header class="site-header">
   <div class="container header-inner">
-    <a href="/" class="logo">
+    <a href={`${import.meta.env.BASE_URL}`} class="logo">
       <span class="logo-text">Dark Bloom</span>
       <span class="logo-sub">Studio</span>
     </a>

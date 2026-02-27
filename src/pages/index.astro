@@ -22,8 +22,8 @@ const featured = allPrints
       <h1 class="hero-title fade-in-up">Dark Bloom<br /><span>Studio</span></h1>
       <p class="hero-subtitle fade-in-up">Original dark art &amp; prints</p>
       <div class="hero-actions fade-in-up">
-        <a href="/prints/" class="btn btn--filled">Browse Prints</a>
-        <a href="/originals/" class="btn">View Originals</a>
+        <a href={`${import.meta.env.BASE_URL}prints/`} class="btn btn--filled">Browse Prints</a>
+        <a href={`${import.meta.env.BASE_URL}originals/`} class="btn">View Originals</a>
       </div>
     </div>
   </section>
@@ -47,7 +47,7 @@ const featured = allPrints
         ))}
       </div>
       <div class="section-cta">
-        <a href="/prints/" class="btn">See All Prints</a>
+        <a href={`${import.meta.env.BASE_URL}prints/`} class="btn">See All Prints</a>
       </div>
     </div>
   </section>
@@ -62,10 +62,10 @@ const featured = allPrints
           Each piece is created with intention — pulling from folklore, gothic
           literature, and the natural world's more shadowed corners.
         </p>
-        <a href="/about/" class="btn btn--small">Read More</a>
+        <a href={`${import.meta.env.BASE_URL}about/`} class="btn btn--small">Read More</a>
       </div>
       <div class="about-teaser__image">
-        <img src="/images/artist-placeholder.jpg" alt="The artist at work" />
+        <img src={`${import.meta.env.BASE_URL}images/artist-placeholder.jpg`} alt="The artist at work" />
       </div>
     </div>
   </section>
@@ -78,7 +78,7 @@ const featured = allPrints
         Find original works, prints, and new releases at upcoming markets and conventions.
       </p>
       <div class="section-cta">
-        <a href="/events/" class="btn">View All Events</a>
+        <a href={`${import.meta.env.BASE_URL}events/`} class="btn">View All Events</a>
       </div>
     </div>
   </section>

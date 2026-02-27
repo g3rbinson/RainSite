@@ -14,6 +14,10 @@ export interface Props {
 
 const { title, image, price, salePrice, saleEnds, medium, size, sold = false, buyLink, inquireLink } = Astro.props;
 
+// Resolve image path with base URL
+const base = import.meta.env.BASE_URL;
+const resolvedImage = image.startsWith('/') ? `${base}${image.slice(1)}` : image;
+
 // Determine if a sale is currently active
 const now = new Date();
 const saleActive = salePrice != null && (!saleEnds || new Date(saleEnds) > now);
@@ -22,7 +26,7 @@ const displayPrice = saleActive ? salePrice : price;
 
 <article class="art-card">
   <div class="art-card__image-wrap">
-    <img src={image} alt={title} class="art-card__image" loading="lazy" />
+    <img src={resolvedImage} alt={title} class="art-card__image" loading="lazy" />
     {sold && <span class="art-card__badge art-card__badge--sold">Sold</span>}
     {saleActive && !sold && <span class="art-card__badge art-card__badge--sale">Sale</span>}
   </div>
