@@ -7,8 +7,8 @@ backend:
   name: github
   repo: g3rbinson/RainSite 
   branch: main
-  # Optional: use the Netlify OAuth proxy, or GitHub OAuth app
-  # See: https://decapcms.org/docs/github-backend/
+  auth_type: pkce
+  app_id: "Ov23liWQ16cnKEZg46vt"
 
 # Where uploaded images go
 media_folder: "public/images"
