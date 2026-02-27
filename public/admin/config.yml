@@ -9,8 +9,6 @@ backend:
   branch: main
   auth_type: pkce
   app_id: "Ov23liWQ16cnKEZg46vt"
-  base_url: "https://g3rbinson.github.io"
-  auth_endpoint: "/RainSite/admin/"
 
 # Site URL (needed for subpath deployments)
 site_url: "https://g3rbinson.github.io/RainSite"
