@@ -1,7 +1,7 @@
 ---
 title: "Bone Garden"
 image: "/images/placeholder-3.jpg"
-price: 35
+price: 25
 medium: "Digital Print on Matte Paper"
 size: '11×14"'
 buyLink: "#"
